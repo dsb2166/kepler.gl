@@ -484,7 +484,8 @@ export default function MapContainerFactory(MapPopover, MapControl, Editor) {
         visStateActions,
         interactionConfig,
         editor,
-        index
+        index,
+        isExport
       } = this.props;
 
       const layersToRender = this.layersToRenderSelector(this.props);
@@ -503,7 +504,7 @@ export default function MapContainerFactory(MapPopover, MapControl, Editor) {
         transformRequest
       };
 
-      const isEdit = mapControls.mapDraw.active;
+      const isEdit = !isExport && mapControls.mapDraw.active;
       const hasGeocoderLayer = layers.find(l => l.id === GEOCODER_LAYER_ID);
 
       return (
@@ -512,7 +513,7 @@ export default function MapContainerFactory(MapPopover, MapControl, Editor) {
             datasets={datasets}
             dragRotate={mapState.dragRotate}
             isSplit={Boolean(mapLayers)}
-            isExport={this.props.isExport}
+            isExport={isExport}
             layers={layers}
             layersToRender={layersToRender}
             mapIndex={index}
